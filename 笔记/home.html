@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .box1 {
+        width:100px;
+        height: 100px;
+        background-color: yellow;
+    }
+    .cover {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top:0;
+        left:0;
+        background-color: rgba(0, 0, 0, .5);
+        display: none;
+    }
+    .cover .box2 {
+        width: 300px;
+        height: 200px;
+        background-color: #fff;
+        position: absolute;
+        top:50%;
+        left:50%;
+        margin-left: -150px;
+        margin-top: -100px;
+    }
+    .cover .box2 p{
+        height: 50px;
+        line-height: 50px;
+        cursor: pointer;
+    }
+    .cover .box2 p span {
+        margin-left:10px; 
+    }
+    .cover .box2 .p1 span{
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        vertical-align: text-bottom
+    }
+</style>
+<body>
+    <div class="box">
+        <div class="box1"></div>
+        <button class="btn1">click</button>
+    </div>
+    <div class="cover">
+        <div class="box2">
+            <p class="p1"><font>背景:</font><span class="bg" style="background:red"></span><span class="bg" style="background:blue"></span><span class="bg" style="background:pink"></span></p>
+            <p><font>高度:</font><span class="hg">100px</span><span class="hg">200px</span><span class="hg">300px</span></p>
+            <p><font>宽度:</font><span class="wd">100px</span><span class="wd">200px</span><span class="wd">300px</span></p>
+            <button class="btn2">确定</button>
+        </div>
+    </div>
+
+    <script>
+        function $(dom) {
+            return document.querySelectorAll(dom)
+        }
+
+
+        let box1 = $('.box1')[0],btn1 = $('.btn1')[0],btn2 = $('.btn2')[0],
+            cover = $('.cover')[0],bg = $('.bg'),hg = $('.hg'),wd = $('.wd')
+
+        btn1.onclick = function(){
+            cover.style.display = 'block'
+        }
+        btn2.onclick = function(){
+            cover.style.display = 'none'
+        }
+        Array.from(bg).forEach(item=>{
+            item.onclick = function(){
+                box1.style.background = this.style.background
+            }
+        })
+        Array.from(hg).forEach(item=>{
+            item.onclick = function(){
+                box1.style.height = this.innerText
+            }
+        })
+        Array.from(wd).forEach(item=>{
+            item.onclick = function(){
+                box1.style.width = this.innerText
+            }
+        })
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+1：js操作标签属性
+    通过 点语法只能操作对象标签内规定的属性   不能操作自定义属性
+    当通过点语法添加自定义属性时 不会出现在标签里，会出现在对象里
+    object.xx = 113
+    console.log(object.xx)
+    要想自定义标签属性(获取属性值)：
+    getAttribute()
+    setAttribute()
+    removeAttribute()
+
+
+2: js控制css样式
+    ==> 外部样式   内部样式  内联样式
+
+    ==> 只能控制内部  内敛(优化代码时用，比如未创建表格时，不加载css样式 ==> eg:table.js封装)
+
+    ==> object.cssText (可读可写属性) (会覆盖之前原有的行内样式) (可以设置大于两个的css样式)
+
+3:img和a标签的路径获取
+    他们获取的都是绝对路径
+    只能用于给其他标签赋值
+
+4： var a = 'height'
+    object.style[a] = '100px'       ==> 对象可以使用点语法 也可以使用数组查询[]
+
+5:获取布尔值
+    5.1:比较获取布尔值
+
+    5<'6' ===> true (比较的是数值)
+    '5'<'20' ===> false (比较的首个字符的 阿斯科马值)
+
+    5.2与或非获取布尔值
+    ||   &&  !
+
+    5.3:隐式转换
+    转换成false的是： 0 NaN undefine '' null   ===> if(function(){}())(false)
+    ** 转换成true : function(){返回值为真时}
+
+    5.4:显示转换
+    NaN  ===>是一个Number数据类型 ===> 函数  isNaN()  工作时候先用Number转换一下
+    对string进行处理
+    Number()  ===>  对数据进行处理，必须是数学数据
+    parseInt() ===> 强制取整，截取
+    parseFloat()  ===>强制取数,截取
+
+    函数表达式：
+    +function(){}()  === ~function(){}() ===(function(){})()   ! -
+
+6:获取对象的相关属性值
+    box.style.width  ===> 这是通过访问标签的行内style的属性，获取对象，在访问属性值
+
+    兼容ie:
+    box.currentStyle.width
+    其他的浏览器:
+    使用方法getcomputedStyle(box).width
+
+
+7:   clientWidth(width + padding)    offsetWidth(width + padding + border)
+
+8: 兼容ie678 获取视口宽度
+    通过型 ： document.documentElement.clientWidth
+    标准浏览器(ie9+) : window.innerWidth
+
+9:卷去滚动的距离
+   其他浏览器：  document.body.scrollTop 
+   谷歌：  document.documentElement.scrollTop  
+
+
+10: for循环时 如果数组的长度发生变化的话，就使用倒叙遍历

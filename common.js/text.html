@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .er {
+        width:100px;
+        height: 100px;
+        background-color: aqua;
+    }
+</style>
+<body>
+    <div class="er"></div>
+    <script src="./xiong.js"></script>
+    <script>
+        var dic = document.querySelectorAll('.er')[0]
+        var xiong = new Xiong()
+        alert( xiong.getStyle(dic,'width') )
+        xiong.move(dic,{"width":"300px"},1000)
+    </script>
+</body>
+</html>
