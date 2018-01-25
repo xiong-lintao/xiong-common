@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    img {
+        display: block;
+        width: 512px;
+        height: 384px;
+    }
+    .container {
+        width: 512px;
+        height: 384px;
+        margin: 100px auto;
+        border: 5px solid green;
+        position: relative;
+    }
+    .imgs {
+        width: 512px;
+        height: 384px;
+        overflow: hidden;
+    }
+    .imgs ul li {
+        float: left;
+
+    }
+    .btns .left,.btns .right{
+        font-size: 20px;
+        display: block;
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background-color: blanchedalmond;
+        top: 50%;
+        margin-top: -25px;
+        cursor: pointer;
+    }
+    .btns .left {
+        left: 0
+    }
+    .btns .right {
+        right: 0
+    }
+    .mark {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+    }
+    .mark ul li{
+        width: 20px;
+        height: 20px;
+        float: left;
+        border-radius: 50%;
+        margin-left: 10px; 
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+        background: #fff;
+    }
+    .mark ul li.on {
+        background-color: #f60;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="imgs">
+            <ul>
+                <li><img src="./imgs/1.jpg" alt=""></li>
+                <li><img src="./imgs/2.jpg" alt=""></li>
+                <!-- <li><img src="./imgs/3.jpg" alt=""></li> -->
+                <li><img src="./imgs/4.jpg" alt=""></li>
+            </ul>
+        </div>
+        <div class="btns">
+            <span class="left">&lt;</span>
+            <span class="right">&gt;</span>
+        </div>
+        <div class="mark">
+            <ul>        
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        //轮播图
+         (function(){
+             var oUl = $('.imgs ul');
+             var oLi = $('.imgs ul li')
+             var oLiLength = $('.imgs ul li').length;
+             var oMark = $('.mark ul')
+             var oMarkLength = $('.mark ul li').length;
+             var Owidth = parseInt( $('.imgs ul li img').css('width') )
+             var index = 1;
+             var nowTime = new Date();
+             var indexMark = 0 ;
+             var timer = null;
+             init();
+             auto();
+            $('.right').on('click',function(){
+                clearInterval(timer)
+                if(new Date() - nowTime > 400)
+                {
+                    nowTime = new Date()
+                    play()
+                }
+            })
+            $('.left').on('click',function(){
+                clearInterval(timer)
+                if(new Date() - nowTime > 400)
+                {
+                    nowTime = new Date()
+                    index--;
+                    indexMark = index - 1
+                    if(index <= 0)
+                    {
+                        indexMark = oMarkLength - 1
+                    }
+                    $('.mark li').eq(indexMark).addClass('on').siblings().removeClass('on')  
+                    oUl.animate({
+                        'marginLeft':-index*Owidth
+                    },300,function(){
+                        if( !index )
+                        { 
+                            index = oLiLength - 2
+                            oUl.css('marginLeft',-index*Owidth)
+                        }
+                    })  
+                }
+            })
+            $('.mark li').on('mouseover',function(){
+                //$(this).css('background','#f60')
+                index = $(this).index()
+                oUl.css('marginLeft',-index*Owidth)
+                $(this).addClass('on').siblings().removeClass('on')
+            })
+            function init(){
+                var $li0 = oLi.eq(0).clone()
+                var $li1 = oLi.eq(oLiLength-1).clone()
+                oUl.append($li0)
+                oUl.prepend($li1)
+                oLi = $('.imgs ul li')
+                oLiLength = $('.imgs ul li').length;
+                oUl.css({
+                    'marginLeft': -index*Owidth,
+                    'width': oLiLength*100 + '%'
+                })
+                for(var i = 0; i < oLiLength -2; i++)
+                {
+                    
+                    var li = $('<li></li>')
+                    li.html(i+1)
+                    oMark.append(li)
+                } 
+                var lft = ( parseInt( $('.mark li').css('width') ) + parseInt( $('.mark li').css('marginLeft') ) )/ 2
+                $('.mark').css('marginLeft',-lft)
+                $('.mark li').eq(indexMark).addClass('on').siblings().removeClass('on')
+                
+            }
+            function auto(){
+                timer = setInterval(function(){
+                    play()
+                },1000)
+            }
+            $('.container').hover(function(){
+                clearInterval(timer)
+            },function(){
+                auto()
+            })
+            function play(){
+                index++;
+                indexMark = index - 1;
+                if(index >= oLiLength -1)
+                {
+                    indexMark = 0;
+                }
+                $('.mark li').eq(indexMark).addClass('on').siblings().removeClass('on');
+                oUl.animate({
+                        'marginLeft':-index*Owidth
+                    },300,function(){
+                    if( !(index%(oLiLength-1)) )
+                    { 
+                        index = 1;
+                        oUl.css('marginLeft',-index*Owidth);
+                    }
+                })  
+            } 
+         })()
+    </script>
+</body>
+</html>
