@@ -67,3 +67,43 @@
 
 
 10: for循环时 如果数组的长度发生变化的话，就使用倒叙遍历
+
+11: 触摸touch
+    
+    touchstart 手指按下去
+    touchmove  手指移动
+    touchend 手指抬起来
+
+    每一个事件触发后，e对象中都有很多的对象，最常用的就是touches，targetTouches，changedTouches
+
+    touches 和 targetTouches 基本不常用
+    最好用changedTouches：
+    原因： 是触发当前事件的手指对象
+
+12： 适配
+    <script>
+        // 屏幕的宽
+        var width = window.screen.width(一般获取的是屏幕分辨率);
+        也可以用：
+        var width = html.getBoundingClientRect().width;
+
+        在这里两个都可以。是因为手机的视网膜分辨率恰好是其视口宽度。
+        alert(width);
+        var fixedW = 660;
+        var scale = width / fixedW;
+        var meta = document.createElement('meta');
+        meta.setAttribute('name','viewport');
+        meta.setAttribute('content','width='+fixedW+',minimum-scale='+scale+',maximum-scale='+scale+',user-scalable=no');
+        document.head.appendChild(meta);
+    </script>
+    将一个宽660px的设计稿，缩放为width;
+
+
+    <!--固定宽度： 要每个移动端上都 按你设定的固定宽度来显示-->
+    <!--假设说固定宽度为:300px, 各个移动端设备都按300来算-->
+    <!--但是，每个移动端的屏幕大小，都可能不太一样-->
+    <!--320px 340px 360px 375px 414px,正常情况下就铺不满，左右两边有间距，-->
+    <!--但我们的需求是 想让 宽为300px的网页铺满整个屏幕，-->
+    <!--要么把网页放大到414，要么把视口缩小到300-->
+    <!--进行等比例缩放-->
+    <!--适配一定是放在头部最上面，因为body的结构及style的样式，都是按照适配方案进行渲染-->
