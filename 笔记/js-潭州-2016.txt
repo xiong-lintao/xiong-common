@@ -66,8 +66,7 @@
    谷歌：  document.documentElement.scrollTop  
 
 
-10: for循环时 如果数组的长度发生变化的话，就使用倒叙遍历
-11: 触摸touch
+10: for循环时 如果数组的长度发生变化的话，就使用倒叙遍历11: 触摸touch
     
     touchstart 手指按下去
     touchmove  手指移动
