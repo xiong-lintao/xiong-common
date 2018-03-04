@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        list-style: none;
+    }
+    ul li {
+        width: 500px;
+        height: 1000px;
+        background-repeat: no-repeat;
+        float: left;
+    }
+</style>
+<body>
+    <form>  
+        <fieldset>  
+            <legend>分度读取文件：</legend>  
+            <input type="file" id="File" multiple />  
+            <input type="button" value="中断" id="Abort" />  
+        </fieldset>  
+    </form> 
+    <ul class="img-list">
+
+    </ul>
+    <script>
+        let file = document.querySelector('#File');
+        file.onchange = function(){
+            let filesList = this.files;
+            let files = Array.from(filesList);
+            files.forEach( (file,index) => {
+                let fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+                fileReader.onload = function(){
+                    let li = document.createElement('li');
+                    li.style.backgroundImage = `url(${this.result})`;
+                    document.querySelectorAll('.img-list')[0].appendChild(li);
+                }
+                fileReader.onprogress = function(e){
+                    console.log(e)
+                    console.log(this)
+                }
+            } )
+        }
+        
+    </script>
+</body>
+</html>

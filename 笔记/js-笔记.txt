@@ -1,0 +1,150 @@
+1：js操作标签属性
+    通过 点语法只能操作对象标签内规定的属性   不能操作自定义属性
+    当通过点语法添加自定义属性时 不会出现在标签里，会出现在对象里
+    object.xx = 113
+    console.log(object.xx)
+    要想自定义标签属性(获取属性值)：
+    getAttribute()
+    setAttribute()
+    removeAttribute()
+
+
+2: js控制css样式
+    ==> 外部样式   内部样式  内联样式
+
+    ==> 只能控制内部  内敛(优化代码时用，比如未创建表格时，不加载css样式 ==> eg:table.js封装)
+
+    ==> object.cssText (可读可写属性) (会覆盖之前原有的行内样式) (可以设置大于两个的css样式)
+
+3:img和a标签的路径获取
+    他们获取的都是绝对路径
+    只能用于给其他标签赋值
+
+4： var a = 'height'
+    object.style[a] = '100px'       ==> 对象可以使用点语法 也可以使用数组查询[]
+
+5:获取布尔值
+    5.1:比较获取布尔值
+
+    5<'6' ===> true (比较的是数值)
+    '5'<'20' ===> false (比较的首个字符的 阿斯科马值)
+
+    5.2与或非获取布尔值
+    ||   &&  !
+
+    5.3:隐式转换
+    转换成false的是： 0 NaN undefine '' null   ===> if(function(){}())(false)
+    ** 转换成true : function(){返回值为真时}
+
+    5.4:显示转换
+    NaN  ===>是一个Number数据类型 ===> 函数  isNaN()  工作时候先用Number转换一下
+    对string进行处理
+    Number()  ===>  对数据进行处理，必须是数学数据
+    parseInt() ===> 强制取整，截取
+    parseFloat()  ===>强制取数,截取
+
+    函数表达式：
+    +function(){}()  === ~function(){}() ===(function(){})()   ! -
+
+6:获取对象的相关属性值
+    box.style.width  ===> 这是通过访问标签的行内style的属性，获取对象，在访问属性值
+
+    兼容ie:
+    box.currentStyle.width
+    其他的浏览器:
+    使用方法getcomputedStyle(box).width
+
+
+7:   clientWidth(width + padding)    offsetWidth(width + padding + border)
+
+8: 兼容ie678 获取视口宽度
+    通过型 ： document.documentElement.clientWidth
+    标准浏览器(ie9+) : window.innerWidth
+
+9:卷去滚动的距离
+   其他浏览器：  document.body.scrollTop 
+   谷歌：  document.documentElement.scrollTop  
+
+
+10: for循环时 如果数组的长度发生变化的话，就使用倒叙遍历
+11: 触摸touch
+    
+    touchstart 手指按下去
+    touchmove  手指移动
+    touchend 手指抬起来
+
+    每一个事件触发后，e对象中都有很多的对象，最常用的就是touches，targetTouches，changedTouches
+
+    touches 和 targetTouches 基本不常用
+    最好用changedTouches：
+    原因： 是触发当前事件的手指对象
+
+12： 适配
+        html.getBoundingClientRect()
+        返回的对象中的left,right ==> 含义是左边框距离左页面的距离；右边框距离左页面的距离。
+        top，bottom，都是距离顶部的距离；
+
+    <script>
+        // 屏幕的宽
+        var width = window.screen.width(一般获取的是屏幕分辨率);
+        也可以用：
+        var width = html.getBoundingClientRect().width;
+
+        在这里两个都可以。是因为手机的视网膜分辨率恰好是其视口宽度。
+        alert(width);
+        var fixedW = 660;
+        var scale = width / fixedW;
+        var meta = document.createElement('meta');
+        meta.setAttribute('name','viewport');
+        meta.setAttribute('content','width='+fixedW+',minimum-scale='+scale+',maximum-scale='+scale+',user-scalable=no');
+        document.head.appendChild(meta);
+    </script>
+    将一个宽660px的设计稿，缩放为width;
+
+
+    <!--固定宽度： 要每个移动端上都 按你设定的固定宽度来显示-->
+    <!--假设说固定宽度为:300px, 各个移动端设备都按300来算-->
+    <!--但是，每个移动端的屏幕大小，都可能不太一样-->
+    <!--320px 340px 360px 375px 414px,正常情况下就铺不满，左右两边有间距，-->
+    <!--但我们的需求是 想让 宽为300px的网页铺满整个屏幕，-->
+    <!--要么把网页放大到414，要么把视口缩小到300-->
+    <!--进行等比例缩放-->
+    <!--适配一定是放在头部最上面，因为body的结构及style的样式，都是按照适配方案进行渲染-->
+
+13: 箭头函数的特点：
+
+    1.箭头函数的this绑定看的是this所在的函数定义在哪个对象下，绑定到哪个对象则this就指向哪个对象
+
+    *2.如果有对象嵌套的情况，则this绑定到最近的一层对象上
+    http://blog.csdn.net/u013344815/article/details/73184928
+
+14: filereader
+    <script>
+        let file = document.querySelector('#File');
+        file.onchange = function(){
+            let filesList = this.files;
+            let files = Array.from(filesList);
+            files.forEach( (file,index) => {
+                let fileReader = new FileReader(); //首先创建filereader对象 
+                fileReader.readAsDataURL(file);
+                fileReader.onload = function(){
+                    let li = document.createElement('li');
+                    li.style.backgroundImage = `url(${this.result})`;
+                    document.querySelectorAll('.img-list')[0].appendChild(li);
+                }
+            } )
+        }
+    </script>
+readAsText：该方法有两个参数，其中第二个参数是文本的编码方式，默认值为 UTF-8。这个方法非常容易理解，将文件以文本方式读取，读取的结果即是这个文本文件中的内容。
+readAsBinaryString：该方法将文件读取为二进制字符串，通常我们将它传送到后端，后端可以通过这段字符串存储文件。
+readAsDataURL：这是例子程序中用到的方法，该方法将文件读取为一段以 data: 开头的字符串，这段字符串的实质就是 Data URL，Data URL是一种将小文件直接嵌入文档的方案。这里的小文件通常是指图像与 html 等格式的文件。     
+
+15:formData
+    csdn:详细解析
+    https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/Using_FormData_Objects
+     选择form表单的几种方式
+    1：var formElement = document.querySelector("form");//直接选择form标签
+
+    2：<form enctype="multipart/form-data" method="post" name="fileinfo">
+        </form>
+        var form = document.forms.namedItem("fileinfo");
