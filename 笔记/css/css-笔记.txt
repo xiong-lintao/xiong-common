@@ -1,0 +1,13 @@
+1:css变量
+    css变量分全局变量和局部变量
+    全局变量：:root {
+                --main-color: #ff6f69;
+            }
+    局部变量：.main {
+                --main-color: #ff6f69;
+            }
+        在.main下的元素里面就可以使用局部变量
+        .main p {
+            color: var(--main-color);
+            border: 1px solid var(--main-color);
+        }

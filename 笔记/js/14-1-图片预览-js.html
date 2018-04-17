@@ -40,7 +40,7 @@
             fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),
             imgBase64 = '',      //存储图片的imgBase64  
             fileObj = document.getElementById('upLoad').files[0]; //上传文件的对象,要这样写才行，用jquery写法获取不到对象  
-          console.log(filePath.IndexOf(".")) ;   
+          console.log(filePath.indexOf(".")) ;   
         // 检查是否是图片  
         if( !fileFormat.match(/.png|.jpg|.jpeg/) ) {  
             alert('上传错误,文件格式必须为：png/jpg/jpeg');  

@@ -1,0 +1,51 @@
+渲染
+ 1:原样输出：{{}}
+ 2：转义输出：v-html="a";(a是带html标签的字符串)
+ 3：计算属性：computed;
+ 4:监听数据变化：wtach
+ 5：事件@click='';修饰符;@click.enter = '';
+
+指令
+1：v-bind;
+2: v-model;
+3: v-if(v-show==>隐藏);
+4: v-on;
+5: v-for;(arr,string,object,number)   (val,index) in obj
+6: v-html;
+7：v-cloak;===>网速过慢时会导致源码显示在前端页面，这个可以解决
+8：===>优化 
+    v-once;==>仅渲染一次页面；
+    v-pre;==>禁止解析标签内部的{{}}
+
+
+
+前端路由：router
+vue-router
+1:用法：
+渲染容器：<router-view></router-view>
+里面放组件；
+路由跳转：<router-link to=''><router-link>
+
+2:js操作路由
+    两个路由模块 $router $rourte
+    前进：this.$router.go(1)
+    后退：this.$router.go(-1)
+    直接跳转：this.$router.push('/user')
+
+3:路由参数：
+path:'/user/:id'
+用在组件的模板里：
+$rourte.params.id
+
+4：监听跳转：
+    watch:不推荐;
+    component 里面添加这v]1个方法beferRouteUpdate(to,from,next){next()>>当调用时就会改变信息，否则就是阻止};
+
+5：子路由
+    new VueRouter({
+        routes:[
+            {path:'/user',component:{template:'<div>
+                <router-view></router-link>
+            </div>'},children:[]}
+        ]
+    })
