@@ -1,0 +1,69 @@
+1:pyinstaller -F --icon="name.ico" name.py
+    -F表示打包成一个文件，不想显示窗口的话加个-w
+    或者：输入命令 pyinstaller -F -i "demo.ico" "main.py"
+2：组合数据：
+    a:集合，建立集合时必须用set()方法建立空集合，不可以处出现重复数据。
+    运算方法：并 交 补 差（s-t）在s中不在t中。
+    方法：s.add() 
+       移除：s.discard()===>元素不在集合中时不报错     s.remove() 
+        s.clear()
+        s.pop()===> 随机返回一个集合元素 并且更新集合
+        s.copy()
+        len(s)
+        x in s
+        x not in s
+        set(arr)===>将其他数据类型转换成集合
+    b:序列类型：
+        字符串类型，元组类型，列表类型
+        顺序为  正向递增反向递减
+        操作符：x in s , x not in s, s+t ,s*n , s[i], s[i,j,k]===>s[::-1]倒叙
+        方法：len() max() min() s.index(s) s.index(x,i,j)   s.count(x)
+
+
+        元组类型:一旦创建就不能修改，（）或者tuple()
+        列表类型:[]或者list[]
+        方法：ls[i] = x; ls[i,j,k] = lt; del    s[i]; del[i,j,k]; lt = lt + ls;
+            ls*n; 
+        ls.append();
+        ls.pop(i)===>移除具体的某一位的数据
+        ls.remove(x)===>列表中第一次出现的x元素删除
+        ls.clear() ls.copy() ls.insert(i,x) ls.reverse()
+    c:字典
+    del d[i]
+    k in d 
+    d.keys() d.values() d.items()
+    d.get(k,default)获取该键所对应的的值，如果不存在则返回后面的参数
+        d.pop(k,default)取出该键所对应的的值，如果不存在则返回后面的参数
+    d.popitem()随机返回以元组的形式
+    d.clear()  len(d)
+3:format()格式化输出
+    第几位：填充，对齐， 宽度，数字的千位分隔符，.精度，类型(比如f)
+
+4：基本类型
+字符串类型：
+len(),str(),hex(),oct(),chr(),ord(),lower(),upper(),split(),count(),replace(),
+center(),strip(),join(),.format()
+数值类型：
+abs()  divmod() pow() round() max() min() 
+int() float() complex()===>复数，返回5+3j
+
+5:文件读写
+with open('song.txt', 'r', encoding='utf-8') as f:
+    print(f.read())
+
+写操作
+with open('song.txt', 'w', encoding='utf-8') as f:
+    print(f.write('你好'))
+
+
+
+方式一：先一次性读取所有行到内存，然后再遍历打印
+
+with open('song.txt', 'r', encoding='utf-8') as f:
+    for line in f.readlines():
+        print(line)
+方式二：通过迭代器一行一行的读取并打印
+
+with open('song.txt', 'r', encoding='utf-8', newline='') as f:
+    for line in f:
+        print(line)
